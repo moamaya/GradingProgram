@@ -32,32 +32,32 @@ int main()
     int no_OfExams = 0;
     cout << "Enter the number of Exams: ";
     cin >> no_OfExams;
-    
+
     int no_OfStudents;
     cout << "Enter the number of Students: ";
     cin >> no_OfStudents;
-    
+
     double weights[no_OfExams];
     double examAvgs[no_OfExams];
     double studentAvgs[no_OfStudents];
-    
+
     //Call the weights function to get user input
     getWeights(weights,no_OfExams);
-    
+
     //read the file, and input known # of students and grades
     readGrades("/Users/MarloAmaya/Desktop/Grades.txt",no_OfStudents,no_OfExams);
-    
+
     //Call the average function
     getAvgsOfExams(examAvgs,no_OfExams,no_OfStudents);
     //cout << examAvgs[2] <<"\n";
-    
+
     //Call the get students averages function
     getAvgsOfStudents(studentAvgs, weights, no_OfExams, no_OfStudents);
     //cout << studentAvgs[0] << "\n";
-    
+
     //Write the final grades to a new txt file
     writeFinalGrades(examAvgs, studentAvgs, no_OfExams, no_OfStudents);
-    
+
     return 0;
 }
 
@@ -68,9 +68,9 @@ void readGrades(string fileName, int numOfStudents, int numOfGrades)
     string line[numOfStudents];
     ifstream inStream;
     // double grades[numOfStudents][numOfGrades]; (ignore this)
-    
+
     inStream.open(fileName);
-    
+
     if (inStream.fail())
     {
         cerr << "Unable to open file Grades.txt";
@@ -82,7 +82,7 @@ void readGrades(string fileName, int numOfStudents, int numOfGrades)
         line[i] = s;
         i++;
     }
-    
+
     int n;
     for (int i = 0; i<numOfStudents;i++)
     {
@@ -101,7 +101,7 @@ void readGrades(string fileName, int numOfStudents, int numOfGrades)
 
 }
 
-// GET WEIGHTS FUNCTION (she gave us this in class)
+// GET WEIGHTS FUNCTION 
 void getWeights(double weight[], int no_ofexams)
 {
     cout << "Enter weight value for each exam:\n";
@@ -138,13 +138,13 @@ void getAvgsOfStudents(double studentAvgs[], double weights[], int numOfExams, i
 void writeFinalGrades(double examAvgs[], double studentGrades[],int numOfExams, int numOfStudents)
 {
     ofstream outStream("/Users/MarloAmaya/Desktop/finalgrades.txt", ios::out);
-    
+
     if (outStream.fail())
     {
         cout << "Output file opening failed.\n";
         exit(1);
     }
-    
+
     //First line
     int x = 0;
     outStream << "   Exam #: ";
@@ -152,7 +152,7 @@ void writeFinalGrades(double examAvgs[], double studentGrades[],int numOfExams, 
     outStream << i << "  ";
     }
     outStream << "Final Grade\n";
-    
+
     //Print the grades along with final grade
     for (int i=1; i<= numOfStudents; i++){
         outStream << "Student " << i << ":";
@@ -164,15 +164,14 @@ void writeFinalGrades(double examAvgs[], double studentGrades[],int numOfExams, 
         outStream << " " << studentGrades[x] <<endl;
         x++;
     }
-    
+
     //Last line, the avg for each exam
     outStream<< "Exam Avgs:";
     for (int i=0; i<numOfExams; i++){
         outStream << examAvgs[i] << " ";
     }
-        
-    
+
+
     outStream.close();
 
 }
-
